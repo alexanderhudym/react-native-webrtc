@@ -399,7 +399,7 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
         return map;
     }
 
-    public ReadableMap serializeSender(RtpSender sender) {
+    public WritableMap serializeSender(RtpSender sender) {
         WritableMap map = Arguments.createMap();
         map.putString("id", sender.id());
         if (sender.track() != null) {
@@ -409,8 +409,8 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
-    public ReadableMap peerConnectionAddTrack(int id, String trackId, ReadableArray streamsArray) {
-        List<String> streamIds = new ArrayList();
+    public WritableMap peerConnectionAddTrack(int id, String trackId, ReadableArray streamsArray) {
+        List<String> streamIds = new ArrayList<>();
         for (Object object : streamsArray.toArrayList()) {
             if (object instanceof String) {
                 streamIds.add((String) object);
