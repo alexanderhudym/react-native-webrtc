@@ -409,7 +409,7 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
-    public WritableMap peerConnectionAddTrack(int id, String trackId, ReadableArray streamsArray) {
+    public ReadableMap peerConnectionAddTrack(int id, String trackId, ReadableArray streamsArray) {
         List<String> streamIds = new ArrayList();
         for (Object object : streamsArray.toArrayList()) {
             if (object instanceof String) {
