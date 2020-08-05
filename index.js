@@ -9,17 +9,19 @@ import MediaStreamTrack from './MediaStreamTrack';
 import mediaDevices from './MediaDevices';
 import permissions from './Permissions';
 import MediaStreamTrackEvent from "./MediaStreamTrackEvent";
+import RTCRtpSender from "./RTCRtpSender";
 
 export {
-  RTCPeerConnection,
-  RTCIceCandidate,
-  RTCSessionDescription,
-  RTCView,
-  MediaStream,
-  MediaStreamTrack,
-  mediaDevices,
-  permissions,
-  registerGlobals
+	RTCPeerConnection,
+	RTCIceCandidate,
+	RTCSessionDescription,
+	RTCView,
+	MediaStream,
+	MediaStreamTrack,
+	mediaDevices,
+	permissions,
+	RTCRtpSender,
+	registerGlobals
 };
 
 function registerGlobals() {
@@ -38,10 +40,12 @@ function registerGlobals() {
 	navigator.mediaDevices.enumerateDevices =
 		mediaDevices.enumerateDevices.bind(mediaDevices);
 
-	global.RTCPeerConnection     = RTCPeerConnection;
-	global.RTCIceCandidate       = RTCIceCandidate;
+	global.RTCPeerConnection = RTCPeerConnection;
+	global.RTCIceCandidate = RTCIceCandidate;
 	global.RTCSessionDescription = RTCSessionDescription;
-	global.MediaStream           = MediaStream;
-	global.MediaStreamTrack      = MediaStreamTrack;
+	global.MediaStream = MediaStream;
+	global.MediaStreamTrack = MediaStreamTrack;
+	global.MediaStreamTrackEvent = MediaStreamTrackEvent;
+	global.RTCRtpSender = RTCRtpSender;
 	// global.Med
 }
