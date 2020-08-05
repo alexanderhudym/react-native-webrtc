@@ -8,6 +8,7 @@ import MediaStream from './MediaStream';
 import MediaStreamTrack from './MediaStreamTrack';
 import mediaDevices from './MediaDevices';
 import permissions from './Permissions';
+import MediaStreamTrackEvent from "./MediaStreamTrackEvent";
 
 export {
   RTCPeerConnection,
@@ -42,4 +43,5 @@ function registerGlobals() {
 	global.RTCSessionDescription = RTCSessionDescription;
 	global.MediaStream           = MediaStream;
 	global.MediaStreamTrack      = MediaStreamTrack;
+	// global.Med
 }

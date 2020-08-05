@@ -382,6 +382,42 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
         return conf;
     }
 
+    public ReadableMap serializeMediaStreamTrack(MediaStreamTrack track, Boolean remote) {
+        WritableMap map = Arguments.createMap();
+        map.putString("id", track.id());
+        map.putString("kind", track.kind());
+        map.putBoolean("remote", remote);
+        map.putBoolean("enabled", track.enabled());
+        map.putString("readyState", track.state().toString());
+        if (track.kind().equals("audio")) {
+            map.putString("label", "Audio");
+        } else if (track.kind().equals("video")) {
+            map.putString("label", "Video");
+        }
+        return map;
+    }
+
+    public ReadableMap serializeSender(RtpSender sender) {
+        WritableMap map = Arguments.createMap();
+        map.putString("id", sender.id());
+        if (sender.track() != null) {
+            map.putMap("track", serializeMediaStreamTrack(sender.track(), false));
+        }
+        return map;
+    }
+
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public WritableMap peerConnectionAddTrack(int id, String trackId, ReadableArray streamsArray) {
+        List<String> streamIds = new ArrayList();
+        for (Object object : streamsArray.toArrayList()) {
+            if (object instanceof String) {
+                streamIds.add((String) object);
+            }
+        }
+        PeerConnection peerConnection = getPeerConnection(id);
+        return serializeSender(peerConnection.addTrack(trackId, streamIds));
+    }
+
     @ReactMethod
     public void peerConnectionInit(ReadableMap configuration, int id) {
         PeerConnection.RTCConfiguration rtcConfiguration
